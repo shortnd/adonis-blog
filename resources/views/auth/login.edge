@@ -1,0 +1,18 @@
+@layout('layouts.app')
+
+@section('content')
+  <h2>Login</h2>
+  <form action="/login" method="post">
+    {{ csrfField() }}
+    <label for="email">Email:
+      <input type="email" name="email" id="email" placeholder="email">
+    </label>
+    <div></div>
+    <label for="password">Password:
+      <input type="password" name="password" id="password" placeholder="password">
+    </label>
+    <div>
+      <button type="submit">Login</button>
+    </div>
+  </form>
+@endsection
