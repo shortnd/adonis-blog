@@ -1,5 +1,6 @@
 'use strict'
 const User = use('App/Models/User')
+const Persona = use('Persona')
 
 class UserController {
   async login({ request, response, view }) {
@@ -10,8 +11,7 @@ class UserController {
     const { email, password } = request.all()
     await auth.attempt(email, password)
 
-    return response.redirect('/blog')
-    // return 'Logged in successfully'
+    return response.redirect('/posts')
   }
 
   async register({ request, response, view }) {
@@ -21,20 +21,20 @@ class UserController {
   async registerStore({ request, response, auth}) {
     const { username, email, password } = request.all()
 
-    await User.create({
-      username: username,
-      email: email,
-      password: password
+    const user = await User.create({
+      username,
+      email,
+      password
     })
 
-    await auth.attempt(email, password)
-
-    return response.redirect('/blog')
+    await auth.login(user)
+    return response.redirect('/posts')
   }
 
   async logout({ request, response, auth }) {
     await auth.logout()
-    return 'User Logged out'
+
+    response.redirect('/login')
   }
 }
 

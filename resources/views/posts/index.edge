@@ -1,0 +1,13 @@
+@layout('layouts.app')
+
+@section('content')
+  <h1>Posts</h1>
+
+  <a href="{{ route('posts.create') }}">Create</a>
+
+  @if(posts.length)
+    {{ posts }}
+  @else
+    <h2>No Posts</h2>
+  @endif
+@endsection

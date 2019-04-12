@@ -17,12 +17,10 @@
 const Route = use('Route')
 
 Route.on('/').render('welcome')
-Route.get('login', 'UserController.login')
-Route.post('login', 'UserController.loginStore')
-Route.get('register', 'UserController.register')
-Route.post('register', 'UserController.registerStore')
-Route.post('logout', 'UserController.logout')
+Route.get('/login', 'UserController.login').as('login')
+Route.post('login', 'UserController.loginStore').as('login.store')
+Route.get('register', 'UserController.register').as('register')
+Route.post('register', 'UserController.registerStore').as('register.store')
+Route.post('logout', 'UserController.logout').as('logout')
 
-Route.get('blog', function() {
-  return 'Blog Page'
-}).middleware(['auth']);
+Route.resource('posts', 'PostController').middleware('auth')
